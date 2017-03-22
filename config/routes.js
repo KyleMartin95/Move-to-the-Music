@@ -32,7 +32,11 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /': 'HomeController.render'
+  'get /': 'HomeController.render',
+
+  'get /about': 'HomeController.about',
+
+  'get /play': 'HomeController.play'
 
   /***************************************************************************
   *                                                                          *
