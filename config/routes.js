@@ -36,7 +36,9 @@ module.exports.routes = {
 
   'get /about': 'HomeController.about',
 
-  'get /play': 'HomeController.play'
+  'get /play': 'HomeController.play',
+
+  'get /game': 'GameController.render'
 
   /***************************************************************************
   *                                                                          *
