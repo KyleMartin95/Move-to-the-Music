@@ -32,13 +32,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /': 'HomeController.render',
+  'get /': 'HomeController.home',
 
   'get /about': 'HomeController.about',
 
-  'get /play': 'HomeController.play',
+  'get /game/start': 'GameController.start',
 
-  'get /game': 'GameController.render'
+  'get /game/song-select': 'GameController.songs',
+
+  'get /game/play': 'GameController.render',
+
+  'get /game/play/:song_name': 'GameController.renderSong'
 
   /***************************************************************************
   *                                                                          *

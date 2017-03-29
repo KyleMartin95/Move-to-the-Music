@@ -18,12 +18,25 @@
     <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!--custom injected css-->
+    <!-- css for default layout -->
       <link rel='stylesheet' href='/styles/layout.css'/>
-      <link rel='stylesheet' href='/styles/{{css}}'/>
+
+    <!--custom injected css-->
+    {{#each css}}
+      <link rel='stylesheet' href='/styles/{{this}}'/>
+    {{/each}}
 
     <!-- custom injected javascript-->
-      <script type="text/javascript" src='javascript/{{javascript}}'></script>
+    {{#each javascript}}
+      <script type="text/javascript" src='/js/{{this}}'></script>
+    {{/each}}
+
+    <!-- howler.js for playing songs/effects ----->
+      <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.core.min.js'></script>
+
+    <!-- responsive voice.js for text to speech --->
+      <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+
 
 
     <!--
@@ -69,7 +82,7 @@
                   <a class="page-scroll" href="/about">About</a>
               </li>
               <li>
-                  <a class="page-scroll" href="/play">Play</a>
+                  <a class="page-scroll" href="/game/start">Play</a>
               </li>
           </ul>
         </div>

@@ -1,0 +1,19 @@
+<div class="container">
+  <h3>Pick a song to dance to!</h3>
+
+  <ul class="list-group">
+
+    {{#each songs}}
+        <li class="list-group-item">
+          <a href="/game/play/{{this.name}}">
+            <div class="song-title">
+              {{this.name}}
+              <div class="song-artist">{{this.artist}}</div>
+            </div>
+            <div class="song-length">{{this.length}}</div>
+          </a>
+        </li>
+    {{/each}}
+
+  </ul>
+</div>
