@@ -40,9 +40,7 @@ module.exports.routes = {
 
   'get /game/song-select': 'GameController.songs',
 
-  'get /game/play': 'GameController.render',
-
-  'get /game/play/:song_name': 'GameController.renderSong'
+  'get /game/play/:song_name': 'GameController.loadGame'
 
   /***************************************************************************
   *                                                                          *
