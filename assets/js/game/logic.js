@@ -1,3 +1,9 @@
+$(document).ready(function(){
+  $(document).keypress(function(event){
+    keyPressEvent(event);
+  });
+});
+
 var keyMap = {
   'q': 'up_left',
   'w': 'up',
@@ -9,49 +15,41 @@ var keyMap = {
   'c': 'back_right'
 };
 
+var keyPressEvent = function(event){
+  var key = event.key;
+  switch(key){
+    case 'q':
+      direction = keyMap.q;
+      hit(keyMap.q)
+      break;
+    case 'e':
+      direction = keyMap.e;
+      hit(keyMap.e)
+      break;
+    case 'a':
+      direction = keyMap.a;
+      hit(keyMap.a)
+      break;
+    case 'd':
+      direction = keyMap.d;
+      hit(keyMap.d)
+      break;
+    case 'z':
+      direction = keyMap.z;
+      hit(keyMap.z)
+      break;
+    case 'c':
+      direction = keyMap.c;
+      hit(keyMap.c)
+      break;
+    default:
+      //do nothing
+      break;
+  }
+}
+
+//handles hit event
 var reset;
-
-$(document).ready(function(){
-
-
-
-  $(document).keypress(function(event){
-    console.log("keyPressed");
-    var key = event.key;
-    switch(key){
-      case 'q':
-        hit(keyMap.q)
-        break;
-      case 'w':
-        hit(keyMap.w)
-        break;
-      case 'e':
-        hit(keyMap.e)
-        break;
-      case 'a':
-        hit(keyMap.a)
-        break;
-      case 'd':
-        hit(keyMap.d)
-        break;
-      case 'z':
-        hit(keyMap.z)
-        break;
-      case 'x':
-        hit(keyMap.x)
-        break;
-      case 'c':
-        hit(keyMap.c)
-        break;
-      default:
-        //do nothing
-        break;
-    }
-  });
-});
-
-
-
 var hit = function(direction){
   //in case of multiple hits before reset
   clearTimeout(reset);
@@ -59,10 +57,13 @@ var hit = function(direction){
   girl = new Image();
   girl.onload = onImageLoad;
   girl.src = '/images/girl_' + direction + '.png';
+  hitMessage.onload = onImageLoad;
+  hitMessage.src = '/images/hit.png';
   animate();
-  
-  //resets the girl to normal standing after a few seconds
+
+  //resets the girl to normal standing after a few seconds and clears hit message
   reset = setTimeout(function(){
+    hitMessage = new Image();
     girl = new Image();
     girl.onload = onImageLoad;
     girl.src = '/images/chibi-girl.png';

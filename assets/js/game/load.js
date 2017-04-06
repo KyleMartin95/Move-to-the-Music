@@ -2,10 +2,12 @@ var game = null;
 var context = null;
 var frameRate = 1000/10;
 var frame = 0;
+var direction;
 var floors = [];
 var frames = [];
 var background = null;
 var girl = null;
+var hitMessage = new Image();
 var arrows = [];
 
 $(document).ready(function(){
@@ -73,6 +75,32 @@ var animate = function(){
   context.drawImage(arrows[6], 50, 700);
   context.drawImage(arrows[5], 530, 700);
   context.drawImage(arrows[4], 1060, 700);
+  //decides where to put hit message if there is one
+  if(hitMessage.src != '#'){
+    switch(direction){
+      case 'up_left':
+        context.drawImage(hitMessage, 50, 10);
+        break;
+      case 'up_right':
+        context.drawImage(hitMessage, 1060, 10);
+        break;
+      case 'left':
+        context.drawImage(hitMessage, 50, 400);
+        break;
+      case 'right':
+        context.drawImage(hitMessage, 1060, 400);
+        break;
+      case 'back_left':
+        context.drawImage(hitMessage, 50, 700);
+        break;
+      case 'back_right':
+        context.drawImage(hitMessage, 1060, 700);
+        break;
+      default:
+        //do nothing
+        break;
+    }
+  }
   frame = ((frame + 1) % floors.length);
 };
 

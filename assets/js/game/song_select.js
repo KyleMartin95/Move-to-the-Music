@@ -1,32 +1,29 @@
+var audio = new Audio();
+
 $(document).ready(function(){
-  var audio = new Audio();
+  responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it.", "US English Female");
 
-  function searchTracks(query) {
-      $.ajax({
-          url: 'https://api.spotify.com/v1/search',
-          data: {
-              q: query,
-              type: 'track'
-          },
-          success: function (response) {
-              if (response.tracks.items.length) {
-                  var track = response.tracks.items[0];
-                  console.log(track);
-                  audio.src = track.preview_url;
-                  audio.play();
-              }
-          }
-      });
-  }
-
-  function playSong(songName, artistName) {
-      var query = songName;
-      if (artistName) {
-          query += ' artist:' + artistName;
-      }
-
-      searchTracks(query);
-  }
+  $('.list-group-item').hoverIntent(function(){
+    $(this).stop(true)
+    var query = $(this).attr('id');
+    console.log(query);
+    $.ajax({
+        url: 'https://api.spotify.com/v1/search',
+        data: {
+            q: query,
+            type: 'track'
+        },
+        success: function (response) {
+            if (response.tracks.items.length) {
+                var track = response.tracks.items[0];
+                audio.src = track.preview_url;
+                audio.play();
+            }
+        }
+    });
+  }, function(){
+    audio.pause();
+  });
 
   if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
@@ -63,3 +60,45 @@ $(document).ready(function(){
     console.log('error');
   });
 });
+
+function trackInfo(trackID){
+  $.ajax({
+      url: 'https://api.spotify.com/v1/audio-analysis/' + trackID,
+
+      success: function (response) {
+          if (response.tracks.items.length) {
+              var track = response.tracks.items[0];
+              console.log(track);
+              var id = track.id;
+              getInfo(track.id);
+          }
+      }
+  });
+}
+
+function searchTracks(query) {
+    $.ajax({
+        url: 'https://api.spotify.com/v1/search',
+        data: {
+            q: query,
+            type: 'track'
+        },
+        success: function (response) {
+            if (response.tracks.items.length) {
+                var track = response.tracks.items[0];
+                console.log(track);
+                var id = track.id;
+                trackInfo(track.id);
+            }
+        }
+    });
+}
+
+function playSong(songName, artistName) {
+    var query = songName;
+    if (artistName) {
+        query += ' artist:' + artistName;
+    }
+
+    searchTracks(query);
+}
