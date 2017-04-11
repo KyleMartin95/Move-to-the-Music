@@ -30,22 +30,29 @@ $(document).ready(function(){
       var commands = {
           'stop': function () {
               audio.pause();
+              responsiveVoice.speak("Pausing Audio", "US English Female");
           },
           'play track *song': function (song) {
               playSong(song);
+              responsiveVoice.speak("Playing " + song, "US English Female");
+
           },
           'play *song by *artist': function (song, artist) {
               playSong(song, artist);
+              responsiveVoice.speak("Playing " + song + " by " + artist, "US English Female");
           },
           'play song *song': function (song) {
               playSong(song);
+              responsiveVoice.speak("Playing " + song, "US English Female");
           },
           'play *song': function (song) {
               console.log("play" + song);
+              responsiveVoice.speak("Playing " + song, "US English Female");
               playSong(song);
           },
 
           ':nomatch': function (message) {
+            responsiveVoice.speak("Invalid Commnand", "US English Female");
           }
       };
 
