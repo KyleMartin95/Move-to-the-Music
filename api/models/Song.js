@@ -30,7 +30,7 @@ module.exports = {
     },
 
     beatMap: {
-      type: 'text',
+      type: 'array',
       required: true
     },
 
