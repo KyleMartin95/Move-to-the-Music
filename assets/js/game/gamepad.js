@@ -2,49 +2,57 @@ var buttonMap = {
   2: {
     'number': 0,
     'direction': 'up_left',
-    'key': 'q'
+    'key': 'q',
+    'pressed': false
   },
 
   12:{
     'number': 1,
     'direction': 'up',
-    'key': 'w'
+    'key': 'w',
+    'pressed': false
   },
 
   1: {
     'number': 2,
     'direction': 'up_right',
-    'key': 'e'
+    'key': 'e',
+    'pressed': false
   },
 
   15: {
     'number': 3,
     'direction': 'left',
-    'key': 'a'
+    'key': 'a',
+    'pressed': false
   },
 
   13: {
     'number': 4,
     'direction': 'right',
-    'key': 'd'
+    'key': 'd',
+    'pressed': false
   },
 
   0: {
     'number': 5,
     'direction': 'back_left',
-    'key': 'z'
+    'key': 'z',
+    'pressed': false
   },
 
   14: {
     'number': 6,
     'direction': 'down',
-    'key': 'x'
+    'key': 'x',
+    'pressed': false
   },
 
   3: {
     'number': 7,
     'direction': 'back_right',
-    'key': 'c'
+    'key': 'c',
+    'pressed': false
   }
 }
 
@@ -69,24 +77,33 @@ $(document).ready(function(){
   function addGamepad(gamepad) {
     controllers[gamepad.index] = gamepad;
 
-    setInterval(updateStatus, 500);
+    setInterval(updateStatus, 100);
   }
 
   function updateStatus() {
     scangamepads();
-    for (j in controllers) {
-      var controller = controllers[j];
+
+      var controller = controllers[0];
       for (var i=0; i<controller.buttons.length; i++) {
         var button = controller.buttons[i];
         //check to make sure it is a button
-        if (typeof(button) == "object") {
+        if (typeof(button) == "object" && buttonMap[i]) {
           //check if button is pressed
-          if(button.pressed){
+          if(button.pressed && buttonMap[i].pressed == false){
+            console.log("calling event");
             buttonPressEvent(button, i);
+            buttonMap[i].pressed = true;
+          }else if(button.pressed && buttonMap[i].pressed) {
+            //alert("made it into thing");
+            continue;
+          }else if((button.pressed === false) & (buttonMap[i].pressed)){
+            buttonMap[i].pressed = false;
           }
+          console.log(i + ':  ' + button.pressed + '  ' + buttonMap[i].pressed + '  ' + buttonMap[i].direction);
         }
+
       }
-    }
+
   }
 
   function scangamepads() {
