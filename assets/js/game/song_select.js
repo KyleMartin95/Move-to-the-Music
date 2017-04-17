@@ -1,7 +1,7 @@
 var audio = new Audio();
 
 $(document).ready(function(){
-  responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it.", "US English Female");
+  responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it. Say help in order to hear a list of voice commands.", "US English Female");
 
   $('.list-group-item').hoverIntent(function(){
     $(this).stop(true)
@@ -28,31 +28,34 @@ $(document).ready(function(){
   if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
       var commands = {
-          'stop': function () {
+          'dance stop': function () {
               audio.pause();
               responsiveVoice.speak("Pausing Audio", "US English Female");
           },
-          'play track *song': function (song) {
+          'dance play track *song': function (song) {
               playSong(song);
               responsiveVoice.speak("Playing " + song, "US English Female");
 
           },
-          'play *song by *artist': function (song, artist) {
+          'dance play *song by *artist': function (song, artist) {
               playSong(song, artist);
               responsiveVoice.speak("Playing " + song + " by " + artist, "US English Female");
           },
-          'play song *song': function (song) {
+          'dance play song *song': function (song) {
               playSong(song);
               responsiveVoice.speak("Playing " + song, "US English Female");
           },
-          'play *song': function (song) {
+          'dance play *song': function (song) {
               console.log("play" + song);
               responsiveVoice.speak("Playing " + song, "US English Female");
               playSong(song);
           },
 
+          'help': function () {
+              console.log()
+          },
+
           ':nomatch': function (message) {
-            responsiveVoice.speak("Invalid Commnand", "US English Female");
           }
       };
 
