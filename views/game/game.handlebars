@@ -5,14 +5,17 @@
 
 <script type="text/javascript">
   var songName = '{{getSong songName}}';
+  var date;
+  var startTime = null;
 
   var loadSong = function(){
     var song = new Howl({
       src: ['/audio/' + songName +'.mp3']
     });
-
     song.once('load', function(){
       song.play();
+        date = new Date();
+        startTime = date.getTime();
     });
   }
 

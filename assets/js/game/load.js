@@ -1,5 +1,4 @@
 var game = null;
-var startTime;
 function Game(){
   //get the game element and set the context
   this.element = document.getElementById("game");
@@ -62,5 +61,4 @@ var onImageLoad = function(){
 //start the game
 $(document).ready(function(){
   game = new Game();
-  startTime = date.getTime();
 });
