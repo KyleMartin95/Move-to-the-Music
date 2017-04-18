@@ -133,36 +133,41 @@ $(document).ready(function(){
 
   function buttonPressEvent(button, buttonNumber){
     var time = date.getTime();
-    switch(buttonNumber){
-      case 0:
-        //set direction girl points to
-        game.direction = buttonMap[0].direction;
-        //calls hit event to make animation happen
-        hit(keyMap.z)
-        break;
-      case 1:
-        game.direction = buttonMap[1].direction;
-        hit(keyMap.e)
-        break;
-      case 2:
-        game.direction = buttonMap[2].direction;
-        hit(keyMap.q)
-        break;
-      case 3:
-        game.direction = buttonMap[3].direction;
-        hit(keyMap.c)
-        break;
-      case 13:
-        game.direction = buttonMap[13].direction;
-        hit(keyMap.d)
-        break;
-      case 15:
-        game.direction = buttonMap[15].direction;
-        hit(keyMap.a)
-        break;
-      default:
-        //do nothing
-        break;
+    if(checkIfHit(time)) {
+      switch(buttonNumber){
+        case 0:
+          //set direction girl points to
+          game.direction = buttonMap[0].direction;
+          //calls hit event to make animation happen
+          hit(keyMap.z)
+          break;
+        case 1:
+          game.direction = buttonMap[1].direction;
+          hit(keyMap.e)
+          break;
+        case 2:
+          game.direction = buttonMap[2].direction;
+          hit(keyMap.q)
+          break;
+        case 3:
+          game.direction = buttonMap[3].direction;
+          hit(keyMap.c)
+          break;
+        case 13:
+          game.direction = buttonMap[13].direction;
+          hit(keyMap.d)
+          break;
+        case 15:
+          game.direction = buttonMap[15].direction;
+          hit(keyMap.a)
+          break;
+        default:
+          //do nothing
+          break;
+      }
+    }else {
+      game.direction = 'miss';
+      hit('miss');
     }
   }
 
