@@ -99,11 +99,8 @@ $(document).ready(function(){
           }else if((button.pressed === false) & (buttonMap[i].pressed)){
             buttonMap[i].pressed = false;
           }
-          console.log(i + ':  ' + button.pressed + '  ' + buttonMap[i].pressed + '  ' + buttonMap[i].direction);
         }
-
       }
-
   }
 
   function scangamepads() {
