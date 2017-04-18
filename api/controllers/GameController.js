@@ -20,7 +20,7 @@ module.exports = {
 		songName = request.param('song_name');
 
 		SongService.getOneSong(response, songName, function(song){
-			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/load.js', 'game/logic.js', 'game/gamepad.js'], songName: song.name});
+			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/load.js', 'game/logic.js', 'game/gamepad.js'], songName: song.name, songBeats: song.beatMap});
 		});
 	}
 };

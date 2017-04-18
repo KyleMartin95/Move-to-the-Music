@@ -129,7 +129,8 @@ $(document).ready(function(){
   }
 
   function buttonPressEvent(button, buttonNumber){
-    var time = date.getTime();
+    var d = new Date()
+    var time = d.getTime();
     if(checkIfHit(time)) {
       switch(buttonNumber){
         case 0:
@@ -150,9 +151,17 @@ $(document).ready(function(){
           game.direction = buttonMap[3].direction;
           hit(keyMap.c)
           break;
+        case 12:
+          game.direction = buttonMap[12].direction;
+          hit(keyMap.w)
+          break;
         case 13:
           game.direction = buttonMap[13].direction;
           hit(keyMap.d)
+          break;
+        case 14:
+          game.direction = buttonMap[14].direction;
+          hit(keyMap.x)
           break;
         case 15:
           game.direction = buttonMap[15].direction;

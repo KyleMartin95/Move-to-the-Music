@@ -1,10 +1,35 @@
-<div id="game-container">
-  <canvas id="game"></canvas>
+<div id="wrapper">
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand"><a href="/">Home</a></li>
+            <li><a href="/game/song-select">Song Select</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="#">Last link</a></li>
+        </ul>
 
-</div>
+        <hr>
+
+        <div class="game-info">
+          <h2>Score</h2>
+          <h2>Combo</h2>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="page-content">
+          <div class="row">
+              <div class="col-md-12">
+                  <canvas id="game"></canvas>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
 
 <script type="text/javascript">
-  var songName = '{{getSong songName}}';
+  var songName = '{{songName}}';
+  var beats = [{{songBeats}}];
   var date;
   var startTime = null;
 

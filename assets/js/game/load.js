@@ -1,12 +1,12 @@
 var game = null;
-function Game(){
+function Game(width, height){
   //get the game element and set the context
   this.element = document.getElementById("game");
   this.context = this.element.getContext("2d");
 
   //set the size of the game element
-  this.element.width = 1275;
-  this.element.height = 1080;
+  this.element.width = document.body.clientWidth * .8;
+  this.element.height = document.body.clientHeight;
 
   this.frameRate = 1000/15;
   this.frame = 0;
@@ -60,5 +60,7 @@ var onImageLoad = function(){
 
 //start the game
 $(document).ready(function(){
-  game = new Game();
+  var width = window.innerWidth * .75;
+  var height = window.innerHeight;
+  game = new Game(width, height);
 });
