@@ -3,15 +3,22 @@ var keyMap = {
   'z': 'back_left', 'x': 'down', 'c': 'back_right'
 };
 
+var date = new Date();
+
   //checks if hit or miss when button is pressed
   //beats is the list of times associated with a beat
-  
+
   var checkIfHit = function(time){
     var beats = [4.083691469,4.701663295,5.423903673,6.090059891,6.765013335,7.383834996,8.105998601,8.748635338,9.431170785,10.034428567,10.716335054,11.407310549,12.057851569,12.716156055,13.414872846,14.057684476,14.72397166,15.334893964,15.929669,16.61249922,17.287100825,17.945950518,18.620541448,19.239383226,19.890047411,20.509012353,21.199339593,21.850117499,22.453436453,23.111931843,23.81006155,24.437168893,25.095700412,25.738144192,26.436854414,27.07929614,27.722277738,28.349341153,29.023260015,29.666361493,30.284862106,30.927536203,31.618095813,32.308308099,32.935332101,33.538525837,34.228641644,34.855756378];
     var difficulty = .1;
+<<<<<<< HEAD
     var elapsedTime = ((time - startTime)/1000) + .3;
     console.log(elapsedTime);
 
+=======
+    var elapsedTime = (startTime - time);
+    console.log(elapsedTime);
+>>>>>>> origin/master
     for(var i = 0; i < beats.length; i++) {
       if(elapsedTime - beats[i] > difficulty*-1 && elapsedTime - beats[i] < difficulty) {
         console.log("hit");
