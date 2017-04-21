@@ -25,7 +25,8 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-   // port: 80,
+   host: process.env.OPENSHIFT_NODEJS_IP,
+   port: process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
