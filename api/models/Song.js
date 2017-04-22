@@ -43,7 +43,7 @@ module.exports = {
       type: 'text',
       required: true
     }
-  }
+  },
 
   connection: 'mtmMongodb'
 };

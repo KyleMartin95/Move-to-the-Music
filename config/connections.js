@@ -58,11 +58,11 @@ module.exports.connections = {
   ***************************************************************************/
   mtmMongodb: {
      adapter: 'sails-mongo',
-     host: process.env.MONGODB_SERVICE_HOST,
-     port: process.env.MONGODB_SERVICE_PORT,
-     user: process.env.MONGODB_USERNAME, //optional
-     password: process.env.MONGODB_PASSWORD, //optional
-     database: process.env.MONGODB_DATABASE //optional
+     host: '127.0.0.1',
+     port: '27017',
+     user: 'MTM_user', //optional
+     password: 'KAl8o4PPtA8WqU35', //optional
+     database: 'Move-to-the-Music' //optional
   },
 
   /***************************************************************************
