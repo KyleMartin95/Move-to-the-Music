@@ -1,72 +1,76 @@
-var keyMap = {
-  'q': 'up_left', 'w': 'up', 'e': 'up_right', 'a': 'left', 'd': 'right',
-  'z': 'back_left', 'x': 'down', 'c': 'back_right'
-};
+var game = null;
+function Game(width, height){
+  //get the game element and set the context
+  this.element = document.getElementById("game");
+  this.context = this.element.getContext("2d");
 
-var date = new Date();
+  //set the size of the game element
+  this.element.width = document.body.clientWidth * .8;
+  this.element.height = document.body.clientHeight;
+
+  this.frameRate = 1000/15;
+  this.frame = 0;
+
+  this.direction;
+
+  this.floors = [];
+  this.frames = [];
+
+  //load background
+  this.background = new Image();
+  this.background.onload = onImageLoad;
+  this.background.src = '/images/transparent_background.png';
+
+  //load floors
+  for(var i = 0; i <= 11; i++){
+    var floorSource = '/images/dance_floor' + i + '.png';
+    this.floors.push(floorSource);
+  }
+  for(var i = 0; i <= this.floors.length; i++){
+    this.frames.push(new Image());
+    this.frames[i].onload = onImageLoad;
+    this.frames[i].src = this.floors[i];
+  }
+
+  //load girl
+  this.girl = new Image();
+  this.girl.onload = onImageLoad;
+  this.girl.src = '/images/chibi-girl.png';
+
+  this.hitMessage = new Image();
+
+  //load arrows
+  this.arrows = [];
+  var arrowSRC = ['/images/up_left_arrow.png', '/images/up_arrow.png', '/images/up_right_arrow.png',
+            '/images/right_arrow.png', '/images/down_right_arrow.png', '/images/down_arrow.png',
+            '/images/down_left_arrow.png', '/images/left_arrow.png'];
+  for(var i = 0; i <= arrowSRC.length; i++){
+    this.arrows.push(new Image());
+    this.arrows[i].onload = onImageLoad;
+    this.arrows[i].src = arrowSRC[i];
+  }
+
+  this.startTime;
+
+  //initialize song and score
+  this.song;
+  this.score;
+
+  //start animation
+  setInterval(animate, this.frameRate);
+}
 
 //checks if hit or miss when button is pressed
 //beats is the list of times associated with a beat
 var checkIfHit = function(time){
   var difficulty = .12;
-  var elapsedTime = ((time - startTime)/1000) + .3;
+  var elapsedTime = ((time - game.startTime)/1000) + .3;
   for(var i = 0; i < beats.length; i++) {
     if(elapsedTime - beats[i] > difficulty*-1 && elapsedTime - beats[i] < difficulty) {
       return true;
     }
   }
   return false;
-}
-
-var keyPressEvent = function(event){
-  var key = event.key;
-  var d = new Date()
-  var time = d.getTime();
-  if(checkIfHit(time)) {
-    switch(key){
-      case 'q':
-        //set direction girl points to
-        game.direction = keyMap.q;
-        //calls hit event to make animation happen
-        hit(keyMap.q)
-        break;
-      case 'w':
-        game.direction = keyMap.w;
-        hit(keyMap.w)
-        break;
-      case 'e':
-        game.direction = keyMap.e;
-        hit(keyMap.e)
-        break;
-      case 'a':
-        game.direction = keyMap.a;
-        hit(keyMap.a)
-        break;
-      case 'd':
-        game.direction = keyMap.d;
-        hit(keyMap.d)
-        break;
-      case 'z':
-        game.direction = keyMap.z;
-        hit(keyMap.z)
-        break;
-      case 'x':
-        game.direction = keyMap.x;
-        hit(keyMap.x)
-        break;
-      case 'c':
-        game.direction = keyMap.c;
-        hit(keyMap.c)
-        break;
-      default:
-        //do nothing
-        break;
-    }
-  }
-  else {
-    game.direction = 'miss';
-    hit('miss');
-  }
 }
 
 //handles hit event
@@ -152,9 +156,40 @@ var animate = function(){
   game.frame = ((game.frame + 1) % game.floors.length);
 };
 
-//register key press event
-$(document).ready(function(){
-  $(document).keydown(function(event){
-    keyPressEvent(event);
+var loadSong = function(){
+  game.song = new Howl({
+    src: ['/audio/' + songName +'.mp3']
   });
+
+  //starts song once it loads and registers the time the song starts
+  game.song.once('load', function(){
+    game.song.play();
+      var date = new Date();
+      game.startTime = date.getTime();
+  });
+
+  //calls the game end function when the song is over
+  game.song.on('end', function(){
+    endGame();
+  });
+};
+
+var endGame = function(){
+  //what to do at the end of game like send the scores to the database
+};
+
+var onImageLoad = function(){
+  console.log("loaded image");
+};
+
+//start the game
+$(document).ready(function(){
+  var width = window.innerWidth * .75;
+  var height = window.innerHeight;
+
+  //initialize game object
+  game = new Game(width, height);
+
+  //start song
+  loadSong();
 });

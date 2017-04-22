@@ -31,15 +31,19 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
+  //main landing page
+  'get /': 'HomeController.index',
 
-  'get /': 'HomeController.home',
-
+  //about page
   'get /about': 'HomeController.about',
 
-  'get /game/start': 'GameController.start',
+  //returns list of songs for starting the game
+  'get /songs': 'SongController.index',
 
-  'get /game/song-select': 'GameController.songs',
+  //updates info about a specific song
+  'put /songs/:song_name/:attribute/:new_value': 'SongController.update',
 
+  //starts the game
   'get /game/play/:song_name': 'GameController.loadGame'
 
   /***************************************************************************

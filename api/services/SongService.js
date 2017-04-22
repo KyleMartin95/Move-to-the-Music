@@ -25,6 +25,18 @@ module.exports = {
 
       next(song)
 		});
-  }
+  },
 
+  editSong: function(songName, attributeToEdit, newValue, res, next){
+    Song.update({name: songName}, {attributeToEdit: newValue}).exec(function(err, song){
+      if(err){
+        return res.serverError(err);
+      }
+      if(!song){
+        res.serverError('There was an issue updating this item, sorry.');
+      }
+
+      next(song);
+    });
+  }
 }

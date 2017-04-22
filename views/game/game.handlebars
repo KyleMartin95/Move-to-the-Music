@@ -25,24 +25,7 @@
     </div>
   </div>
 
-
-
 <script type="text/javascript">
   var songName = '{{songName}}';
   var beats = [{{songBeats}}];
-  var date;
-  var startTime = null;
-
-  var loadSong = function(){
-    var song = new Howl({
-      src: ['/audio/' + songName +'.mp3']
-    });
-    song.once('load', function(){
-      song.play();
-        date = new Date();
-        startTime = date.getTime();
-    });
-  }
-
-  loadSong();
 </script>

@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	home: function (request, response) {
+	index: function (request, response) {
     return response.view('main/index', {css: ['../styles/index.css']});
   },
 

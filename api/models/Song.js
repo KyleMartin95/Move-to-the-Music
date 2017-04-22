@@ -42,6 +42,11 @@ module.exports = {
     length: {
       type: 'text',
       required: true
+    },
+
+    scores: {
+      collection: 'score',
+      via: 'user'
     }
   }
 };
