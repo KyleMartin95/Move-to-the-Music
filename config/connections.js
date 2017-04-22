@@ -58,7 +58,11 @@ module.exports.connections = {
   ***************************************************************************/
   mtmMongodb: {
      adapter: 'sails-mongo',
-     url: process.env.OPENSHIFT_MONGODB_DB_URL //optional
+     host: process.env.MONGODB_SERVICE_HOST,
+     port: process.env.MONGODB_SERVICE_PORT,
+     user: process.env.MONGODB_USERNAME, //optional
+     password: process.env.MONGODB_PASSWORD, //optional
+     database: process.env.MONGODB_DATABASE //optional
   },
 
   /***************************************************************************
