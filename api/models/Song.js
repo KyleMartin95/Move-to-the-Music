@@ -44,4 +44,6 @@ module.exports = {
       required: true
     }
   }
+
+  connection: 'mtmMongodb'
 };
