@@ -14,8 +14,21 @@ module.exports = {
     })
   },
 
-  getOneSong: function(res, songName, next){
-    Song.findOne({name: songName}).exec(function (err, song){
+  getOneSongBasedOnName: function(res, songName, next){
+    Song.findOne({name: songName}).populate('scores').exec(function (err, song){
+		  if (err) {
+		    return res.serverError(err);
+		  }
+		  if (!song) {
+		    return res.notFound('Could not find that song, sorry.');
+		  }
+
+      next(song)
+		});
+  },
+
+  getOneSongBasedOnId: function(res, id, next){
+    Song.findOne({id: id}).populate('scores').exec(function (err, song){
 		  if (err) {
 		    return res.serverError(err);
 		  }

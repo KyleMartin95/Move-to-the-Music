@@ -54,10 +54,10 @@ function Game(width, height){
 
   //initialize song and score
   this.song;
-  this.score;
+  this.score = 0;
 
   //start animation
-  setInterval(animate, this.frameRate);
+  this.animation = setInterval(animate, this.frameRate);
 }
 
 //checks if hit or miss when button is pressed
@@ -164,8 +164,8 @@ var loadSong = function(){
   //starts song once it loads and registers the time the song starts
   game.song.once('load', function(){
     game.song.play();
-      var date = new Date();
-      game.startTime = date.getTime();
+    var date = new Date();
+    game.startTime = date.getTime();
   });
 
   //calls the game end function when the song is over
@@ -175,7 +175,40 @@ var loadSong = function(){
 };
 
 var endGame = function(){
-  //what to do at the end of game like send the scores to the database
+  //stops the animation
+  clearInterval(game.animation);
+
+  //hide the game and show the name form
+  $('.game-container').hide();
+  $('#page-content-wrapper').css('background-color', '#7BAFD4');
+  $('.main-login').show();
+
+  //prevent form post
+  $("#name-submit").submit(function(e){
+    e.preventDefault();
+
+    var user = $('#name').val();
+
+    //create a new score
+    requests.updateScore(songName, user, game.score, function(scoreObject){
+      displayScores(scoreObject);
+    });
+
+    var displayScores = function(scoreObject){
+      //get all the scores of the song that played including the one that was just added
+      requests.getScores(scoreObject.song, function(scores){
+        //hide the name submit form
+        $('.main-login').hide();
+
+        //display all the scores for the song
+        $('#score-table').show();
+        $(scores).each(function(index, scoreObject){
+          var markup = '<tr><td>' + scoreObject.user + '</td><td>' + scoreObject.score + '</td></tr>';
+          $('table tbody').append(markup);
+        });
+      });
+    }
+  });
 };
 
 var onImageLoad = function(){

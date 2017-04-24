@@ -16,6 +16,10 @@ module.exports = {
     user: {
       type: 'text',
       required: true
+    },
+
+    song: {
+      model: 'song'
     }
   }
 };

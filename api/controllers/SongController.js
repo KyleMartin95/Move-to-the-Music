@@ -12,10 +12,18 @@ module.exports = {
 		});
 	},
 
+	show: function(request, response){
+		var id = request.param('id');
+
+		SongService.getOneSongBasedOnId(response, id, function(song){
+			return response.json(song);
+		});
+	},
+
 	update: function(request, response){
-		var songName = request.param('song_name');
-		var attributeToEdit = request.param('attribute');
-		var newValue = request.param('new_value');
+		var songName = request.body.song;
+		var attributeToEdit = request.body.attribute;
+		var newValue = request.body.newValue;
 
 		SongService.editSong(songName, attributeToEdit, response, function(song){
 			return response.json(song);

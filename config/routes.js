@@ -40,8 +40,11 @@ module.exports.routes = {
   //returns list of songs for starting the game
   'get /songs': 'SongController.index',
 
-  //updates info about a specific song
-  'put /songs/:song_name/:attribute/:new_value': 'SongController.update',
+  //get the details of a specific song
+  'get /songs/:id': 'SongController.show',
+
+  //creates a new score for a song
+  'post /scores': 'ScoreController.create',
 
   //starts the game
   'get /game/play/:song_name': 'GameController.loadGame'
