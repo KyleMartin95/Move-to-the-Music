@@ -46,7 +46,7 @@ module.exports = {
 
     scores: {
       collection: 'score',
-      via: 'user'
+      via: 'song'
     }
   }
 };

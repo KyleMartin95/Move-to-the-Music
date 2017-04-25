@@ -1,31 +1,72 @@
 <div id="wrapper">
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand"><a href="/">Home</a></li>
-            <li><a href="/game/song-select">Song Select</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="#">Last link</a></li>
-        </ul>
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="/">Home</a></li>
+          <li><a href="/game/song-select">Song Select</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="#">Last link</a></li>
+      </ul>
 
-        <hr>
+      <hr>
 
-        <div class="game-info">
-          <h2>Score</h2>
-          <p id='score' style='text-align: center;'>0</p>
-          <h2>Combo</h2>
-          <p id='combo' style='text-align: center;'> No combo yet</p>
-        </div>
+    <div class="game-info">
+      <h2>Score</h2>
+      <p id='score' style='text-align: center;'>0</p>
+      <h2>Combo</h2>
+      <p id='combo' style='text-align: center;'> No combo yet</p>
     </div>
-    <div id="page-content-wrapper">
-      <div class="page-content">
+  <div id="page-content-wrapper">
+    <div class="page-content">
+        <div class="row game-container">
+            <div class="col-md-12">
+                <canvas id="game"></canvas>
+            </div>
+        </div>
+
+    <!-- form that pops up at the end of a song -->
+    <div class="main-login main-center">
+  		<form id="name-submit" class="form-horizontal" method="post" action="#">
+  			<div class="form-group">
+  				<label for="name" class="cols-sm-2 control-label">Your Name</label>
+  				<div class="cols-sm-10">
+  					<div class="input-group">
+  						<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  						<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="form-group ">
+  				<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Submit Score</button>
+  			</div>
+  		</form>
+  	</div>
+
+    <div class="col-md-4 col-md-offset-4" id="score-table">
+      <div class="panel panel-default panel-table">
+        <div class="panel-heading">
           <div class="row">
-              <div class="col-md-12">
-                  <canvas id="game"></canvas>
-              </div>
+            <div class="col col-xs-6">
+              <h3 class="panel-title">Scores</h3>
+            </div>
           </div>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped table-bordered table-list">
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--scores are appended here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
 <script type="text/javascript">
   var songName = '{{songName}}';

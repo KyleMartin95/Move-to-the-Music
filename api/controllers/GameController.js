@@ -9,8 +9,8 @@ module.exports = {
 	loadGame: function(request, response){
 		var songName = request.param('song_name');
 
-		SongService.getOneSong(response, songName, function(song){
-			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js'], songName: song.name, songBeats: song.beatMap});
+		SongService.getOneSongBasedOnName(response, songName, function(song){
+			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js', 'game/requests.js'], songName: song.name, songBeats: song.beatMap});
 		});
 	}
 };
