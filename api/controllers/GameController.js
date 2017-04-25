@@ -10,7 +10,7 @@ module.exports = {
 		var songName = request.param('song_name');
 
 		SongService.getOneSong(response, songName, function(song){
-			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js'], songName: song.name, songBeats: song.beatMap});
+			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js', 'game/combo.js'], songName: song.name, songBeats: song.beatMap});
 		});
 	}
 };
