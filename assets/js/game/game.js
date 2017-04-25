@@ -1,5 +1,8 @@
 var game = null;
+var user = null;
+
 function Game(width, height){
+
   //get the game element and set the context
   this.element = document.getElementById("game");
   this.context = this.element.getContext("2d");
@@ -63,7 +66,7 @@ function Game(width, height){
 //checks if hit or miss when button is pressed
 //beats is the list of times associated with a beat
 var checkIfHit = function(time){
-  var difficulty = .12;
+  var difficulty = 999.12;
   var elapsedTime = ((time - game.startTime)/1000) + .3;
   for(var i = 0; i < beats.length; i++) {
     if(elapsedTime - beats[i] > difficulty*-1 && elapsedTime - beats[i] < difficulty) {
@@ -75,6 +78,8 @@ var checkIfHit = function(time){
 
 //handles hit event
 var reset;
+var comboChecker = (new combo());
+
 var hit = function(direction){
   //in case of multiple hits before reset
   clearTimeout(reset);
@@ -90,8 +95,18 @@ var hit = function(direction){
     game.girl.src = '/images/chibi-girl.png';
   }
 
+  if(direction != 'miss') {
+    comboChecker.setComboSteps(direction);
+    game.score += comboChecker.getComboPoints();
+    document.getElementById("score").innerHTML = "" + game.score;
+    document.getElementById("combo").innerHTML = "" + comboChecker.getComboMP3();
+  }
+
   game.hitMessage.onload = onImageLoad;
   game.hitMessage.src = '/images/hit.png';
+  
+  
+
   animate();
 
   //resets the girl to normal standing after a few seconds and clears hit message
@@ -225,3 +240,91 @@ $(document).ready(function(){
   //start song
   loadSong();
 });
+
+var bazooka = ['down','down','up',"Bazooka",50];
+var jackhammer = ['back_left', 'back_right', 'up', 'Jackhammer', 50];
+var berserker = ['left','back_right','up_left',"Berserker",50];
+var bombardment = ['right','right','up',"Bombardment",50];
+var canonball = ['left','up','right',"Canonball",50];
+var corkscrew = ['up_left','up','back_right',"Corkscrew",50];
+var inferno = ['back_right','down','back_left',"Inferno",50];
+var pyschoTee = ['up_left','up_right','back_left',"PyschoTee",50];
+var splinter = ['up_left','up','up_right',"Splinter",50];
+var torpedo = ['up','up','down',"Torpedo",50];
+var zigZag = ['back_left','right','up_left',"ZigZag",50];
+var combos = [jackhammer,bazooka,berserker,bombardment,canonball,corkscrew,inferno,pyschoTee,splinter,torpedo,zigZag];
+var maxComboSize = 3;
+
+function combo(){
+  this.comboInfo = [null, 10];
+  this.comboSteps = [null, null, null];
+  this.comboStart = 0;
+  this.comboIndex = 0;
+  this.comboMatched = false;
+  this.comboName = "No Combo Yet!";
+  this.comboPoints = 10;
+
+  this.getComboSteps = function(){
+    return this.comboSteps;
+  }
+
+  this.setComboSteps = function(direction){
+    var fir = this.comboStart;
+    var sec = this.comboStart+1>=maxComboSize ? 0 : this.comboStart + 1;
+    var third = this.comboStart+2>=maxComboSize ? 0 : this.comboStart + 2;
+    console.log(fir + ": " + this.comboSteps[fir] + " " + sec + ": " + this.comboSteps[sec] + " " + third +":" + this.comboSteps[third] + " Start: "+ this.comboStart + " Index to add to:" + this.comboIndex + " Combo Matched: " + this.comboMatched + " Points to add: " + this.comboPoints);
+    if(this.comboMatched) {
+      for(var k = 0; k < this.comboSteps.length; k++) {
+        this.comboSteps[k] = null;
+      }
+      this.comboIndex = 0;
+      this.comboStart = 0;
+      this.comboName = "No Combo Yet!";
+      this.comboPoints = 10;
+      this.comboMatched = false;
+    }
+    this.comboSteps[this.comboIndex++] = direction;
+    if(this.comboIndex == this.comboSteps.length) {
+      console.log("reset comboIndex to 0")
+      this.comboIndex = 0;
+    }
+    if(this.comboIndex == this.comboStart) {
+      console.log("3 hits registered")
+      for(var i = 0; i < combos.length; i++) {
+        var compareIndex = this.comboStart;
+        console.log("starting compareIndex at " + compareIndex);
+        for(var j = 0; j < maxComboSize; j++) {
+          console.log("comparing " + combos[i][j] + " to " + this.comboSteps[compareIndex]);
+          if(combos[i][j] !== this.comboSteps[compareIndex++]) {
+            console.log("Not a match with " + combos[i][3]);
+            break;
+          }
+          if(compareIndex == maxComboSize) {
+            compareIndex = 0;
+          }
+          if(j == maxComboSize-1) {
+            console.log("Found a match");
+            this.comboName = combos[i][maxComboSize];
+            this.comboPoints = combos[i][maxComboSize+1];
+            this.comboMatched = true;
+            return;
+          }
+        }
+      }
+      if(this.comboIndex == this.comboStart) {
+        this.comboStart++;
+      }
+      if(this.comboStart == maxComboSize) {
+        this.comboStart = 0;
+      }
+    }
+  };
+
+  this.getComboMP3 = function(){
+    return this.comboName;
+  }
+
+  this.getComboPoints = function(){
+    return this.comboPoints;
+  }
+}

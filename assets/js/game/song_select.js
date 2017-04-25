@@ -1,7 +1,7 @@
 var audio = new Audio();
 
 $(document).ready(function(){
-  responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it. Say help in order to hear a list of voice commands.", "US English Female");
+  //responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it. Say help in order to hear a list of voice commands.", "US English Female");
 
   $('.list-group-item').hoverIntent(function(){
     $(this).stop(true)
@@ -24,7 +24,7 @@ $(document).ready(function(){
   }, function(){
     audio.pause();
   });
-
+/*
   if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
       var commands = {
@@ -64,7 +64,7 @@ $(document).ready(function(){
 
       // Start listening. You can call this here, or attach this call to an event, button, etc.
       annyang.start();
-  }
+  }*/
 
   annyang.addCallback('error', function () {
     console.log('error');
