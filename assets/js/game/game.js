@@ -108,7 +108,6 @@ var hit = function(direction){
 var animate = function(){
   game.context.clearRect(0, 0, game.element.width, game.element.height);
   var ratio = Math.min(game.element.width/game.frames[game.frame].width, game.element.height/game.frames[game.frame].height);
-  console.log(ratio);
   game.context.drawImage(game.frames[game.frame], 0, game.element.height/1.81512, game.frames[game.frame].width*ratio, game.frames[game.frame].height*ratio);
   ratio = Math.min(game.element.width/game.background.width, game.element.height/game.background.height);
   game.context.drawImage(game.background, 0, 0, game.background.width, game.background.height, 0, 0, game.element.width, game.element.height);
