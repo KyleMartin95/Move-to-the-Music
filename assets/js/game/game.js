@@ -66,13 +66,21 @@ function Game(width, height){
 //checks if hit or miss when button is pressed
 //beats is the list of times associated with a beat
 var checkIfHit = function(time){
-  var difficulty = 999.12;
+  var difficulty = .12;
   var elapsedTime = ((time - game.startTime)/1000) + .3;
   for(var i = 0; i < beats.length; i++) {
     if(elapsedTime - beats[i] > difficulty*-1 && elapsedTime - beats[i] < difficulty) {
+      var right = new Howl({
+              src: ['/audio/congrats.WAV']
+            });
+      right.play();
       return true;
     }
   }
+  var wrong = new Howl({
+              src: ['/audio/clank.WAV']
+            });
+  wrong.play();
   return false;
 }
 
@@ -269,10 +277,10 @@ function combo(){
   }
 
   this.setComboSteps = function(direction){
-    var fir = this.comboStart;
-    var sec = this.comboStart+1>=maxComboSize ? 0 : this.comboStart + 1;
-    var third = this.comboStart+2>=maxComboSize ? 0 : this.comboStart + 2;
-    console.log(fir + ": " + this.comboSteps[fir] + " " + sec + ": " + this.comboSteps[sec] + " " + third +":" + this.comboSteps[third] + " Start: "+ this.comboStart + " Index to add to:" + this.comboIndex + " Combo Matched: " + this.comboMatched + " Points to add: " + this.comboPoints);
+    //var fir = this.comboStart;
+    //var sec = this.comboStart+1>=maxComboSize ? 0 : this.comboStart + 1;
+    //var third = this.comboStart+2>=maxComboSize ? 0 : this.comboStart + 2;
+    //console.log(fir + ": " + this.comboSteps[fir] + " " + sec + ": " + this.comboSteps[sec] + " " + third +":" + this.comboSteps[third] + " Start: "+ this.comboStart + " Index to add to:" + this.comboIndex + " Combo Matched: " + this.comboMatched + " Points to add: " + this.comboPoints);
     if(this.comboMatched) {
       for(var k = 0; k < this.comboSteps.length; k++) {
         this.comboSteps[k] = null;
@@ -285,27 +293,37 @@ function combo(){
     }
     this.comboSteps[this.comboIndex++] = direction;
     if(this.comboIndex == this.comboSteps.length) {
-      console.log("reset comboIndex to 0")
+      //console.log("reset comboIndex to 0")
       this.comboIndex = 0;
     }
     if(this.comboIndex == this.comboStart) {
-      console.log("3 hits registered")
+      //console.log("3 hits registered")
       for(var i = 0; i < combos.length; i++) {
         var compareIndex = this.comboStart;
-        console.log("starting compareIndex at " + compareIndex);
+        //console.log("starting compareIndex at " + compareIndex);
         for(var j = 0; j < maxComboSize; j++) {
-          console.log("comparing " + combos[i][j] + " to " + this.comboSteps[compareIndex]);
+          //console.log("comparing " + combos[i][j] + " to " + this.comboSteps[compareIndex]);
           if(combos[i][j] !== this.comboSteps[compareIndex++]) {
-            console.log("Not a match with " + combos[i][3]);
+            //console.log("Not a match with " + combos[i][3]);
             break;
           }
           if(compareIndex == maxComboSize) {
             compareIndex = 0;
           }
           if(j == maxComboSize-1) {
-            console.log("Found a match");
+            //console.log("Found a match");
             this.comboName = combos[i][maxComboSize];
             this.comboPoints = combos[i][maxComboSize+1];
+            var theWordCombo = new Howl({
+              src: ['/audio/Combo.mp3']
+            });
+            theWordCombo.play();
+            var comboSound = new Howl({
+              src: ['/audio/' + this.comboName +'.mp3']
+            });
+            setTimeout(function () {
+              comboSound.play();
+            }, 400);
             this.comboMatched = true;
             return;
           }
