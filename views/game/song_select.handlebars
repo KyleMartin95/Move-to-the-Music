@@ -4,8 +4,8 @@
   <ul class="list-group">
 
     {{#each songs}}
-        <li class="list-group-item" id="{{this.name}} {{this.artist}}">
-          <a href="/game/play/{{this.name}}">
+        <li class="list-group-item">
+          <a href="/game/play/{{this.name}}" class="song-link" id="{{this.name}} {{this.artist}}">
             <div class="song-title">
               {{this.name}}
               <div class="song-artist">{{this.artist}}</div>

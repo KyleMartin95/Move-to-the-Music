@@ -3,7 +3,7 @@ var audio = new Audio();
 $(document).ready(function(){
   //responsiveVoice.speak("Please choose a song you want to dance to. You can hover over a song to hear a clip of it. Say help in order to hear a list of voice commands.", "US English Female");
 
-  $('.list-group-item').hoverIntent(function(){
+  $('.song-link').hoverIntent(function(){
     $(this).stop(true)
     var query = $(this).attr('id');
     console.log(query);
@@ -24,6 +24,30 @@ $(document).ready(function(){
   }, function(){
     audio.pause();
   });
+
+  $('.song-link').on('focus', function(){
+    $(this).stop(true);
+    var query = $(this).attr('id');
+    setTimeout(function(){
+      console.log(query);
+      $.ajax({
+          url: 'https://api.spotify.com/v1/search',
+          data: {
+              q: query,
+              type: 'track'
+          },
+          success: function (response) {
+              if (response.tracks.items.length) {
+                  var track = response.tracks.items[0];
+                  audio.src = track.preview_url;
+                  audio.play();
+              }
+          }
+      });
+    }, 600);
+  });
+
+
 /*
   if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
