@@ -126,7 +126,6 @@ input::-webkit-input-placeholder {
 }
 
 .main-login{
-  display: none;
  	background-color: #fff;
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
@@ -139,7 +138,7 @@ input::-webkit-input-placeholder {
 }
 
 .main-center{
-  display: inline-block;
+  display: none;
  	margin-top: 30vh;
   margin-left: 40%;
  	max-width: 330px;

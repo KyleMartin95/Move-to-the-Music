@@ -112,8 +112,8 @@ var hit = function(direction){
 
   game.hitMessage.onload = onImageLoad;
   game.hitMessage.src = '/images/hit.png';
-  
-  
+
+
 
   animate();
 
@@ -203,7 +203,7 @@ var endGame = function(){
   //hide the game and show the name form
   $('.game-container').hide();
   $('#page-content-wrapper').css('background-color', '#7BAFD4');
-  $('.main-login').show();
+  $('.main-center').css('display', 'inline-block');
 
   //prevent form post
   $("#name-submit").submit(function(e){
