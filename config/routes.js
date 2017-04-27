@@ -46,7 +46,10 @@ module.exports.routes = {
   //creates a new score for a song
   'post /scores': 'ScoreController.create',
 
-  //starts the game
+  //route for the tutorial
+  'get /game/tutorial': 'GameController.loadTutorial',
+
+  //starts the game with the specified song
   'get /game/play/:song_name': 'GameController.loadGame'
 
   /***************************************************************************
