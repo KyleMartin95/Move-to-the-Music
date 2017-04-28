@@ -196,6 +196,21 @@ var loadSong = function(){
   });
 };
 
+//used for tutorial, sort of hacky
+var secondLoadSong = function(){
+  game.song = new Howl({
+    src: ['/audio/' + songName +'.mp3']
+  });
+
+  //starts song once it loads and registers the time the song starts
+  game.song.once('load', function(){
+    game.song.play();
+    var date = new Date();
+    game.startTime = date.getTime();
+  });
+}
+
+/////////////                End Game Section          ////////////////////////
 var endGame = function(){
   //stops the animation
   clearInterval(game.animation);
@@ -232,23 +247,10 @@ var endGame = function(){
     }
   });
 };
+///////////////////////////////////////////////////////////////////////////////
 
-var onImageLoad = function(){
-  console.log("loaded image");
-};
 
-//start the game
-$(document).ready(function(){
-  var width = window.innerWidth * .75;
-  var height = window.innerHeight;
-
-  //initialize game object
-  game = new Game(width, height);
-
-  //start song
-  loadSong();
-});
-
+///////////          Combos Section                     ////////////////////
 var bazooka = ['down','down','up',"Bazooka",50];
 var jackhammer = ['back_left', 'back_right', 'up', 'Jackhammer', 50];
 var berserker = ['left','back_right','up_left',"Berserker",50];
@@ -346,3 +348,56 @@ function combo(){
     return this.comboPoints;
   }
 }
+
+//////////////       End Combos Section              //////////////////////////
+
+/////////////        tutorial walkthrough            //////////////////////////
+var tutorial = function(){
+  responsiveVoice.speak("Hey, welcome to move to the music! The goal of the game is to step on the dance pad to the beat of the music. You can press any button on any beat. Try it now", "US English Female", {onstart: voiceStartCallback, onend: firstVoiceEndCallback});
+
+  function voiceStartCallback(){
+    console.log('voice started');
+  }
+
+  function firstVoiceEndCallback(){
+    console.log('voice ended');
+    loadSong();
+    setTimeout(function(){
+      game.song.pause();
+      responsiveVoice.speak("Nice job! Every time you step to the beat you get ten points. You can rack up even more points by hitting combos! You can get them by hitting certain combinations of three buttons in a row without stepping to the wrong beat. Go ahead and try some now!", "US English Female", {onstart: voiceStartCallback, onend: secondVoiceEndCallback});
+    }, 20000);
+  }
+
+  function secondVoiceEndCallback(){
+    console.log("second voice callback");
+    secondLoadSong();
+    setTimeout(function(){
+      game.song.pause();
+      responsiveVoice.speak("Sweet moves! You're all set to play the game now", "US English Female");
+    }, 20000);
+  }
+}
+
+////////////////////          end tutorial              ///////////////////////
+
+//start the game
+$(document).ready(function(){
+  var width = window.innerWidth * .75;
+  var height = window.innerHeight;
+
+  //initialize game object and start animation
+  game = new Game(width, height);
+
+  //need to do different things based on tutorial
+  if(isTutorial){
+    //start tutorial
+    tutorial();
+  }else{
+    //start song
+    loadSong();
+  }
+});
+
+var onImageLoad = function(){
+  console.log("loaded image");
+};
