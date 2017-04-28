@@ -2,6 +2,10 @@ body{
   background-color: #7BAFD4;
 }
 
+button{
+  margin-top: 15px;
+}
+
 /*styles for the name input box*/
 .form-group{
 	margin-bottom: 15px;
@@ -31,9 +35,7 @@ input::-webkit-input-placeholder {
 
 .main-center{
   display: inline-block;
- 	margin-top: 30vh;
-  margin-left: 40%;
- 	max-width: 330px;
+ 	margin-top: 25vh;
     padding: 40px 40px;
 
 }

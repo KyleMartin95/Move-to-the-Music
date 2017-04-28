@@ -363,7 +363,7 @@ var tutorial = function(){
     console.log('voice ended');
     loadSong();
     setTimeout(function(){
-      game.song.pause();
+      game.song.stop();
       responsiveVoice.speak("Nice job! Every time you step to the beat you get ten points. You can rack up even more points by hitting combos! You can get them by hitting certain combinations of three buttons in a row without stepping to the wrong beat. Go ahead and try some now!", "US English Female", {onstart: voiceStartCallback, onend: secondVoiceEndCallback});
     }, 20000);
   }
