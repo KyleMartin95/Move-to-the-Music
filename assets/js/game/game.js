@@ -78,7 +78,7 @@ var checkIfHit = function(time){
     }
   }
   var wrong = new Howl({
-              src: ['/audio/clank.WAV']
+              src: ['/audio/clank.wav']
             });
   wrong.play();
   return false;
