@@ -113,8 +113,7 @@ var hit = function(direction){
   game.hitMessage.onload = onImageLoad;
   game.hitMessage.src = '/images/hit.png';
 
-
-
+  //draws the new stuff to the screen
   animate();
 
   //resets the girl to normal standing after a few seconds and clears hit message
@@ -179,8 +178,10 @@ var animate = function(){
 };
 
 var loadSong = function(){
+  game.song = null;
+
   game.song = new Howl({
-    src: ['/audio/' + songName +'.mp3']
+    src: ['/audio/songs/' + songName +'.mp3']
   });
 
   //starts song once it loads and registers the time the song starts
@@ -353,7 +354,7 @@ function combo(){
 
 /////////////        tutorial walkthrough            //////////////////////////
 var tutorial = function(){
-  responsiveVoice.speak("Hey, welcome to move to the music! The goal of the game is to step on the dance pad to the beat of the music. You can press any button on any beat. Try it now", "US English Female", {onstart: voiceStartCallback, onend: firstVoiceEndCallback});
+  responsiveVoice.speak("Hey, welcome to move to the music! The goal of the game is to step on the dance pad to the beat of the music. You can step on any button on the dance pad on any beat. Try it now", "US English Female", {onstart: voiceStartCallback, onend: firstVoiceEndCallback});
 
   function voiceStartCallback(){
     console.log('voice started');
@@ -370,7 +371,11 @@ var tutorial = function(){
 
   function secondVoiceEndCallback(){
     console.log("second voice callback");
-    secondLoadSong();
+    game.song.play()
+    setTimeout(function(){
+      var date = new Date();
+      game.startTime = date.getTime();
+    }, 700);
     setTimeout(function(){
       game.song.pause();
       responsiveVoice.speak("Sweet moves! You're all set to play the game now", "US English Female");
