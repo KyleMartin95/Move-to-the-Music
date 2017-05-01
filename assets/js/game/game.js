@@ -61,15 +61,36 @@ function Game(width, height){
 
   //start animation
   this.animation = setInterval(animate, this.frameRate);
+
+  //sets difficulty timespan for hit detection and score multiplier
+
+  switch(difficulty) {
+    case 'easy':
+      this.difficulty = .3;
+      this.scoreMultiplier = 1;
+      break;
+    case 'medium':
+      this.difficulty = .22;
+      this.scoreMultiplier = 1.2;
+      break;
+    case 'hard':
+      this.difficulty = .12
+      this.scoreMultiplier = 1.5;
+      break;
+  }
 }
+
+
 
 //checks if hit or miss when button is pressed
 //beats is the list of times associated with a beat
+var beatCheckIndex = 0;
 var checkIfHit = function(time){
-  var difficulty = .12;
   var elapsedTime = ((time - game.startTime)/1000) + .3;
-  for(var i = 0; i < beats.length; i++) {
-    if(elapsedTime - beats[i] > difficulty*-1 && elapsedTime - beats[i] < difficulty) {
+  console.log(elapsedTime);
+  for(var i = beatCheckIndex; i < beats.length; i++) {
+    if(elapsedTime - beats[i] > game.difficulty*-1 && elapsedTime - beats[i] < game.difficulty) {
+      beatCheckIndex = i;
       var right = new Howl({
               src: ['/audio/congrats.WAV']
             });
@@ -86,7 +107,7 @@ var checkIfHit = function(time){
 
 //handles hit event
 var reset;
-var comboChecker = (new combo());
+var comboChecker = new combo();
 
 var hit = function(direction){
   //in case of multiple hits before reset
@@ -108,6 +129,8 @@ var hit = function(direction){
     game.score += comboChecker.getComboPoints();
     document.getElementById("score").innerHTML = "" + game.score;
     document.getElementById("combo").innerHTML = "" + comboChecker.getComboMP3();
+  }else{
+    comboChecker.clearComboTracking();
   }
 
   game.hitMessage.onload = onImageLoad;
@@ -252,22 +275,7 @@ var endGame = function(){
 
 
 ///////////          Combos Section                     ////////////////////
-var bazooka = ['down','down','up',"Bazooka",50];
-var jackhammer = ['back_left', 'back_right', 'up', 'Jackhammer', 50];
-var berserker = ['left','back_right','up_left',"Berserker",50];
-var bombardment = ['right','right','up',"Bombardment",50];
-var canonball = ['left','up','right',"Canonball",50];
-var corkscrew = ['up_left','up','back_right',"Corkscrew",50];
-var inferno = ['back_right','down','back_left',"Inferno",50];
-var pyschoTee = ['up_left','up_right','back_left',"PyschoTee",50];
-var splinter = ['up_left','up','up_right',"Splinter",50];
-var torpedo = ['up','up','down',"Torpedo",50];
-var zigZag = ['back_left','right','up_left',"ZigZag",50];
-var combos = [jackhammer,bazooka,berserker,bombardment,canonball,corkscrew,inferno,pyschoTee,splinter,torpedo,zigZag];
-var maxComboSize = 3;
-
 function combo(){
-  this.comboInfo = [null, 10];
   this.comboSteps = [null, null, null];
   this.comboStart = 0;
   this.comboIndex = 0;
@@ -280,11 +288,44 @@ function combo(){
   }
 
   this.setComboSteps = function(direction){
-    //var fir = this.comboStart;
-    //var sec = this.comboStart+1>=maxComboSize ? 0 : this.comboStart + 1;
-    //var third = this.comboStart+2>=maxComboSize ? 0 : this.comboStart + 2;
-    //console.log(fir + ": " + this.comboSteps[fir] + " " + sec + ": " + this.comboSteps[sec] + " " + third +":" + this.comboSteps[third] + " Start: "+ this.comboStart + " Index to add to:" + this.comboIndex + " Combo Matched: " + this.comboMatched + " Points to add: " + this.comboPoints);
     if(this.comboMatched) {
+      this.clearComboTracking();
+    }
+    this.comboSteps[this.comboIndex++] = direction;
+    if(this.comboIndex == this.comboSteps.length) {
+      this.comboIndex = 0;
+    }
+    if(this.comboIndex == this.comboStart) {
+      for(var i = 0; i < combos.amount; i++) {
+        var compareIndex = this.comboStart;
+        if(combos[combos.names[i]].first !== this.comboSteps[compareIndex] || combos[combos.names[i]].second !== this.comboSteps[(compareIndex+1)%3] || combos[combos.names[i]].third !== this.comboSteps[(compareIndex+2)%3]) {
+          continue;
+        }
+        this.comboName = combos.names[i];
+        this.comboPoints = 50;
+        var theWordCombo = new Howl({
+          src: ['/audio/combos/Combo.mp3']
+        });
+        theWordCombo.play();
+        var comboSound = new Howl({
+          src: ['/audio/combos/' + this.comboName +'.mp3']
+        });
+        setTimeout(function () {
+          comboSound.play();
+        }, 400);
+        this.comboMatched = true;
+        return;  
+      }
+      if(this.comboIndex == this.comboStart) {
+        this.comboStart++;
+      }
+      if(this.comboStart == 3) {
+        this.comboStart = 0;
+      }
+    }
+  };
+
+  this.clearComboTracking = function() {
       for(var k = 0; k < this.comboSteps.length; k++) {
         this.comboSteps[k] = null;
       }
@@ -293,60 +334,14 @@ function combo(){
       this.comboName = "No Combo Yet!";
       this.comboPoints = 10;
       this.comboMatched = false;
-    }
-    this.comboSteps[this.comboIndex++] = direction;
-    if(this.comboIndex == this.comboSteps.length) {
-      //console.log("reset comboIndex to 0")
-      this.comboIndex = 0;
-    }
-    if(this.comboIndex == this.comboStart) {
-      //console.log("3 hits registered")
-      for(var i = 0; i < combos.length; i++) {
-        var compareIndex = this.comboStart;
-        //console.log("starting compareIndex at " + compareIndex);
-        for(var j = 0; j < maxComboSize; j++) {
-          //console.log("comparing " + combos[i][j] + " to " + this.comboSteps[compareIndex]);
-          if(combos[i][j] !== this.comboSteps[compareIndex++]) {
-            //console.log("Not a match with " + combos[i][3]);
-            break;
-          }
-          if(compareIndex == maxComboSize) {
-            compareIndex = 0;
-          }
-          if(j == maxComboSize-1) {
-            //console.log("Found a match");
-            this.comboName = combos[i][maxComboSize];
-            this.comboPoints = combos[i][maxComboSize+1];
-            var theWordCombo = new Howl({
-              src: ['/audio/Combo.mp3']
-            });
-            theWordCombo.play();
-            var comboSound = new Howl({
-              src: ['/audio/' + this.comboName +'.mp3']
-            });
-            setTimeout(function () {
-              comboSound.play();
-            }, 400);
-            this.comboMatched = true;
-            return;
-          }
-        }
-      }
-      if(this.comboIndex == this.comboStart) {
-        this.comboStart++;
-      }
-      if(this.comboStart == maxComboSize) {
-        this.comboStart = 0;
-      }
-    }
-  };
+  }
 
   this.getComboMP3 = function(){
     return this.comboName;
   }
 
   this.getComboPoints = function(){
-    return this.comboPoints;
+    return this.comboPoints*game.scoreMultiplier;
   }
 }
 

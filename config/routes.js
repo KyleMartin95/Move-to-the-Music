@@ -50,7 +50,7 @@ module.exports.routes = {
   'get /game/tutorial': 'GameController.loadTutorial',
 
   //starts the game with the specified song
-  'get /game/play/:song_name': 'GameController.loadGame'
+  'get /game/play/:song_name/:difficulty': 'GameController.loadGame'
 
   /***************************************************************************
   *                                                                          *
