@@ -83,7 +83,7 @@ $(document).ready(function(){
   function updateStatus() {
     scangamepads();
 
-      var controller = controllers[0];
+      var controller = controllers[1];
       for (var i=0; i<controller.buttons.length; i++) {
         var button = controller.buttons[i];
         //check to make sure it is a button
@@ -121,8 +121,7 @@ $(document).ready(function(){
       window.addEventListener("gamepadconnected", connecthandler);
       window.addEventListener("gamepaddisconnected", disconnecthandler);
     }else if (haveWebkitEvents) {
-      window.addEventListener("webkitgamepadconnected", connecthandler);
-      window.addEventListener("webkitgamepaddisconnected", disconnecthandler);
+
     }else {
       setInterval(scangamepads, game.frameRate);
     }
