@@ -89,7 +89,7 @@ var checkIfHit = function(time){
   var elapsedTime = ((time - game.startTime)/1000) + .3;
   console.log(elapsedTime);
   for(var i = beatCheckIndex; i < beats.length; i++) {
-    if(elapsedTime - beats[i] > game.difficulty*-1 && elapsedTime - beats[i] < game.difficulty) {
+    if(elapsedTime - beats[i] > (1000000+game.difficulty)*-1 && elapsedTime - beats[i] < 1000000+game.difficulty) {
       beatCheckIndex = i;
       var right = new Howl({
               src: ['/audio/congrats.WAV']
@@ -296,11 +296,12 @@ function combo(){
       this.comboIndex = 0;
     }
     if(this.comboIndex == this.comboStart) {
-      for(var i = 0; i < combos.amount; i++) {
+      for(var i = 0; i < combos.names.length; i++) {
         var compareIndex = this.comboStart;
         if(combos[combos.names[i]].first !== this.comboSteps[compareIndex] || combos[combos.names[i]].second !== this.comboSteps[(compareIndex+1)%3] || combos[combos.names[i]].third !== this.comboSteps[(compareIndex+2)%3]) {
           continue;
         }
+        console.log("Matched with " + combos.names[i]);
         this.comboName = combos.names[i];
         this.comboPoints = 50;
         var theWordCombo = new Howl({
@@ -308,7 +309,7 @@ function combo(){
         });
         theWordCombo.play();
         var comboSound = new Howl({
-          src: ['/audio/combos/' + this.comboName +'.mp3']
+          src: ['/audio/combos/' + this.comboName +'.mp3'],
         });
         setTimeout(function () {
           comboSound.play();
