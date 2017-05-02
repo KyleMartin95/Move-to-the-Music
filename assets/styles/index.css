@@ -6,9 +6,8 @@ button{
   margin-top: 15px;
 }
 
-/*styles for the name input box*/
-.form-group{
-	margin-bottom: 15px;
+nav{
+  display: none;
 }
 
 label{

@@ -9,7 +9,7 @@ module.exports = {
 
 	loadTutorial: function(request, response){
 		SongService.getOneSongBasedOnName(response, "Aint No Man", function(song){
-			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js', 'game/requests.js', 'game/combos.js'], songName: song.name, songBeats: song.beatMap, tutorial: true});
+			return response.view('game/game', {css: ['game/game.css'], javascript: ['game/game.js', 'game/keyboard.js', 'game/gamepad.js', 'game/requests.js', 'game/combos.js', 'game/tutorial.js'], songName: song.name, songBeats: song.beatMap, tutorial: true});
 		});
 	},
 

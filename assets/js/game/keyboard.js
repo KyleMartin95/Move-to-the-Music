@@ -56,7 +56,10 @@ var keyPressEvent = function(event){
 
 //register key press event
 $(document).ready(function(){
-  $(document).keydown(function(event){
-    keyPressEvent(event);
+  $(document).keydown(function(e){
+    //only want to trigger event for qweadzxc
+    if(e.which == 81 || e.which == 87 || e.which == 69 || e.which == 65 || e.which == 68 || e.which == 90 || e.which == 88 || e.which == 67){
+      keyPressEvent(event);
+    }
   });
 });
