@@ -97,10 +97,41 @@ $(document).ready(function(){
       setInterval(updateStatus, 100);
     }
 
+  var foundController = false;
+  var controller = null;
+
     function updateStatus() {
       scangamepads();
-
-        var controller = controllers[2];
+      if(!foundController) {
+        //console.log("checking for controller");
+        for(var j=0; j < 4; j++) {
+          var contr = controllers[j];
+          if(contr == null) continue;
+          for (var i=0; i<contr.buttons.length; i++) {
+            var button = contr.buttons[i];
+            //check to make sure it is a button
+            if (typeof(button) == "object" && buttonMap[i]) {
+              //check if button is pressed
+              if(button.pressed && buttonMap[i].pressed == false){
+                //console.log("calling event");
+                buttonPressEvent(button, i);
+                buttonMap[i].pressed = true;
+                foundController = true;
+                controller = controllers[j];
+                return;
+              }else if(button.pressed && buttonMap[i].pressed) {
+                //alert("made it into thing");
+                continue;
+              }else if((button.pressed === false) & (buttonMap[i].pressed)){
+                  buttonMap[i].pressed = false;
+              }
+            }
+          }
+        }
+      }
+      else {
+        console.log(foundController);
+        console.log(controller);
         for (var i=0; i<controller.buttons.length; i++) {
           var button = controller.buttons[i];
           //check to make sure it is a button
@@ -118,6 +149,7 @@ $(document).ready(function(){
             }
           }
         }
+      }
     }
 
     function scangamepads() {
@@ -145,7 +177,7 @@ $(document).ready(function(){
     }
 
     function buttonPressEvent(button, buttonNumber){
-      alert('button pressed');
+      //alert('button pressed');
       var d = new Date()
       var time = d.getTime();
       if(checkIfHit(time)) {
