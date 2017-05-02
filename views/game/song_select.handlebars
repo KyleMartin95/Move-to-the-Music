@@ -1,24 +1,28 @@
 <div class="container">
-  <h3>Pick a song to dance to!</h3>
-  <h5>Difficulty</h5>
-  <select id="difficulty">
-    <option value="easy" selected>easy</option>
-    <option value="medium">medium</option>
-    <option value="hard">hard</option>
-  </select>
-
-  <ul class="list-group">
-    {{#each songs}}
-        <li class="list-group-item">
-          <a href="/game/play/{{this.name}}" class="song-link" id="{{this.name}}">
-            <div class="song-title">
-              {{this.name}}
-              <div class="song-artist">{{this.artist}}</div>
-            </div>
-            <div class="song-length">{{this.length}}</div>
-          </a>
-        </li>
-    {{/each}}
-
-  </ul>
+  <div id="difficulty-selector">
+    <select id="difficulty">
+      <option value="pick" selected="selected">Pick a difficulty</option>
+      <option value="easy">easy</option>
+      <option value="medium">medium</option>
+      <option value="hard">hard</option>
+    </select>
+  </div>
+  <div id="header">
+    <h3>Pick a song to dance to!</h3>
+  </div>
+  <div>
+    <ul class="list-group">
+      {{#each songs}}
+          <li class="list-group-item">
+            <a href="/game/play/{{this.name}}" class="song-link" id="{{this.name}}">
+              <div class="song-title">
+                {{this.name}}
+                <div class="song-artist">{{this.artist}}</div>
+              </div>
+              <div class="song-length">{{this.length}}</div>
+            </a>
+          </li>
+      {{/each}}
+    </ul>
+  </div>
 </div>

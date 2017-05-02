@@ -8,10 +8,8 @@ var tutorial = function(){
 
   function firstVoiceEndCallback(){
     console.log('voice ended');
-
     setTimeout(function(){
       calibrationDirection = 'down';
-      alert(calibrationDirection);
       responsiveVoice.speak("The sound you just heard is an indication that you stepped on the beat. Now try stepping on the down arrow.", "US English Female", {onstart: voiceStartCallback, onend: secondVoiceEndCallback});
     }, 3000);
   }
@@ -92,6 +90,7 @@ var controllers = {};
 var rAF = window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame ||
 window.requestAnimationFrame;
+var controller;
 
 function connecthandler(e) {
   addGamepad(e.gamepad);
@@ -110,6 +109,7 @@ function addGamepad(gamepad) {
 
 function updateStatus() {
   scangamepads();
+
   var controller = controllers[1];
   for (var i=0; i<controller.buttons.length; i++) {
     var button = controller.buttons[i];
