@@ -145,7 +145,6 @@ $(document).ready(function(){
     }
 
     function buttonPressEvent(button, buttonNumber){
-      alert('button pressed');
       var d = new Date()
       var time = d.getTime();
       if(checkIfHit(time)) {
