@@ -149,8 +149,6 @@ function checkForGamePad(){
 }
 
 function buttonPressEvent(button, buttonNumber){
-  alert('button pressed');
-
   if(calibrationDirection == 'down'){
     var wrong = new Howl({
       src: ['/audio/clank.WAV']

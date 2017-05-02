@@ -2,7 +2,7 @@ function initializeButtonMap(){
   var buttonMap;
 
   //check to see if they have calibrated their own dance pad, if not just use default dance pad and hope it works
-  if($.isEmptyObject(localStorage.buttonMap)){
+  if(!$.isEmptyObject(localStorage.buttonMap)){
     buttonMap = JSON.parse(localStorage.buttonMap);
     console.log(buttonMap);
   }else{
@@ -177,7 +177,6 @@ $(document).ready(function(){
     }
 
     function buttonPressEvent(button, buttonNumber){
-      //alert('button pressed');
       var d = new Date()
       var time = d.getTime();
       if(checkIfHit(time)) {
