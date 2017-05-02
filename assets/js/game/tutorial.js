@@ -90,7 +90,6 @@ var controllers = {};
 var rAF = window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame ||
 window.requestAnimationFrame;
-var controller;
 
 function connecthandler(e) {
   addGamepad(e.gamepad);
@@ -110,7 +109,7 @@ function addGamepad(gamepad) {
 function updateStatus() {
   scangamepads();
 
-  var controller = controllers[1];
+  var controller = controllers[2];
   for (var i=0; i<controller.buttons.length; i++) {
     var button = controller.buttons[i];
     //check to make sure it is a button
@@ -150,6 +149,7 @@ function checkForGamePad(){
 }
 
 function buttonPressEvent(button, buttonNumber){
+  alert('button pressed');
 
   if(calibrationDirection == 'down'){
     var wrong = new Howl({

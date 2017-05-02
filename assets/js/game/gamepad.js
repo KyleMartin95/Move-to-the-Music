@@ -1,72 +1,78 @@
-var buttonMap;
+function initializeButtonMap(){
+  var buttonMap;
 
-//check to see if they have calibrated their own dance pad, if not just use default dance pad and hope it works
-if(localStorage.buttonMap){
-  buttonMap = JSON.parse(localStorage.buttonMap);
-}else{
-  buttonMap = {
-    2: {
-      'number': 0,
-      'direction': 'up_left',
-      'key': 'q',
-      'pressed': false
-    },
+  //check to see if they have calibrated their own dance pad, if not just use default dance pad and hope it works
+  if($.isEmptyObject(localStorage.buttonMap)){
+    buttonMap = JSON.parse(localStorage.buttonMap);
+    console.log(buttonMap);
+  }else{
+    console.log('using default');
+    buttonMap = {
+      2: {
+        'number': 0,
+        'direction': 'up_left',
+        'key': 'q',
+        'pressed': false
+      },
 
-    12:{
-      'number': 1,
-      'direction': 'up',
-      'key': 'w',
-      'pressed': false
-    },
+      12:{
+        'number': 1,
+        'direction': 'up',
+        'key': 'w',
+        'pressed': false
+      },
 
-    1: {
-      'number': 2,
-      'direction': 'up_right',
-      'key': 'e',
-      'pressed': false
-    },
+      1: {
+        'number': 2,
+        'direction': 'up_right',
+        'key': 'e',
+        'pressed': false
+      },
 
-    15: {
-      'number': 3,
-      'direction': 'left',
-      'key': 'a',
-      'pressed': false
-    },
+      15: {
+        'number': 3,
+        'direction': 'left',
+        'key': 'a',
+        'pressed': false
+      },
 
-    13: {
-      'number': 4,
-      'direction': 'right',
-      'key': 'd',
-      'pressed': false
-    },
+      13: {
+        'number': 4,
+        'direction': 'right',
+        'key': 'd',
+        'pressed': false
+      },
 
-    0: {
-      'number': 5,
-      'direction': 'back_left',
-      'key': 'z',
-      'pressed': false
-    },
+      0: {
+        'number': 5,
+        'direction': 'back_left',
+        'key': 'z',
+        'pressed': false
+      },
 
-    14: {
-      'number': 6,
-      'direction': 'down',
-      'key': 'x',
-      'pressed': false
-    },
+      14: {
+        'number': 6,
+        'direction': 'down',
+        'key': 'x',
+        'pressed': false
+      },
 
-    3: {
-      'number': 7,
-      'direction': 'back_right',
-      'key': 'c',
-      'pressed': false
+      3: {
+        'number': 7,
+        'direction': 'back_right',
+        'key': 'c',
+        'pressed': false
+      }
     }
   }
+  return buttonMap;
 }
 
 $(document).ready(function(){
 
   //if its the tutorial we need different functionality for the gamepad since we are calibrating it
   if(!isTutorial){
+    var buttonMap = initializeButtonMap();
     console.log('game dancepad mode');
     var haveEvents = 'GamepadEvent' in window;
     var haveWebkitEvents = 'WebKitGamepadEvent' in window;
@@ -94,7 +100,7 @@ $(document).ready(function(){
     function updateStatus() {
       scangamepads();
 
-        var controller = controllers[1];
+        var controller = controllers[2];
         for (var i=0; i<controller.buttons.length; i++) {
           var button = controller.buttons[i];
           //check to make sure it is a button
@@ -139,6 +145,7 @@ $(document).ready(function(){
     }
 
     function buttonPressEvent(button, buttonNumber){
+      alert('button pressed');
       var d = new Date()
       var time = d.getTime();
       if(checkIfHit(time)) {
