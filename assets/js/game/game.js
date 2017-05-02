@@ -236,6 +236,10 @@ var endGame = function(){
   $("#name-submit").submit(function(e){
     e.preventDefault();
 
+    //setTimeout(function(){
+      responsiveVoice.speak("Nice moves! Your score was: Enter your name to input your score and find out how you did compared to others!", "US English Female");
+    //}, 2000);
+
     var user = $('#name').val();
 
     //create a new score
