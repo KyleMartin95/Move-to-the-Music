@@ -97,13 +97,13 @@ $(document).ready(function(){
       setInterval(updateStatus, 100);
     }
 
-  var foundController = false;
-  var controller = null;
+    var foundController = false;
+    var controller = null;
 
     function updateStatus() {
       scangamepads();
       if(!foundController) {
-        //console.log("checking for controller");
+        console.log("checking for controller");
         for(var j=0; j < 4; j++) {
           var contr = controllers[j];
           if(contr == null) continue;

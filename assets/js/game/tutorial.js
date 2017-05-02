@@ -106,19 +106,45 @@ function addGamepad(gamepad) {
   setInterval(updateStatus, 100);
 }
 
+var foundController = false;
+var controller = null;
 function updateStatus() {
   scangamepads();
-
-  var controller = controllers[2];
-  for (var i=0; i<controller.buttons.length; i++) {
-    var button = controller.buttons[i];
-    //check to make sure it is a button
-    if (typeof(button) == "object") {
-      //check if button is pressed
-      if(button.pressed){
-        buttonPressEvent(button, i);
-      }else{
-        continue;
+  if(!foundController) {
+    //console.log("checking for controller");
+    for(var j=0; j < 4 && !foundController; j++) {
+      var contr = controllers[j];
+      if(contr == null) continue;
+      for (var i=0; i<contr.buttons.length; i++) {
+        var button = contr.buttons[i];
+        //check to make sure it is a button
+        if (typeof(button) == "object") {
+          //check if button is pressed
+          if(button.pressed){
+            buttonPressEvent(button, i);
+            foundController = true;
+            controller = controllers[j];
+          }else{
+            //alert("made it into thing");
+            continue;
+          }
+        }
+      }
+    }
+  }else {
+    console.log(foundController);
+    console.log(controller);
+    for (var i=0; i<controller.buttons.length; i++) {
+      var button = controller.buttons[i];
+      //check to make sure it is a button
+      if (typeof(button) == "object") {
+        //check if button is pressed
+        if(button.pressed){
+          buttonPressEvent(button, i);
+        }else{
+          //alert("made it into thing");
+          continue;
+        }
       }
     }
   }
