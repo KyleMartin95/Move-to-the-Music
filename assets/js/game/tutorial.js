@@ -80,11 +80,12 @@ var tutorial = function(){
 }
 ////////////////////          end tutorial              ///////////////////////
 
-var buttonMap = {};
+///////////////////          for calibrating dancepad   ///////////////////////
 
+//button map is filled out during tutorial using calibration direction
+var buttonMap = {};
 var calibrationDirection = 'up';
 
-///////////////////          for calibrating dancepad   ///////////////////////
 var haveEvents = 'GamepadEvent' in window;
 var haveWebkitEvents = 'WebKitGamepadEvent' in window;
 var controllers = {};

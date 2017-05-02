@@ -89,7 +89,7 @@ var checkIfHit = function(time){
   var elapsedTime = ((time - game.startTime)/1000) + .3;
   console.log(elapsedTime);
   for(var i = beatCheckIndex; i < beats.length; i++) {
-    if(elapsedTime - beats[i] > (1000000+game.difficulty)*-1 && elapsedTime - beats[i] < 1000000+game.difficulty) {
+    if(elapsedTime - beats[i] > (game.difficulty)*-1 && elapsedTime - beats[i] < game.difficulty) {
       beatCheckIndex = i;
       var right = new Howl({
               src: ['/audio/congrats.WAV']
@@ -223,7 +223,7 @@ var loadSong = function(){
 /////////////                End Game Section          ////////////////////////
 var endGame = function(){
   $(document).unbind('keydown');
-  
+
   //stops the animation
   clearInterval(game.animation);
 
