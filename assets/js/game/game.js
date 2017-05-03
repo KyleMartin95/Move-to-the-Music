@@ -74,7 +74,7 @@ function Game(width, height){
       this.scoreMultiplier = 1.2;
       break;
     case 'hard':
-      this.difficulty = .12
+      this.difficulty = .18;
       this.scoreMultiplier = 1.5;
       break;
   }
@@ -232,13 +232,13 @@ var endGame = function(){
   $('#page-content-wrapper').css('background-color', '#7BAFD4');
   $('.main-center').css('display', 'inline-block');
 
+  setTimeout(function(){
+    responsiveVoice.speak("Nice moves! Your scored, " + game.score + ", points. Enter your name to input your score and find out how you did compared to others!", "US English Female");
+  }, 1000);
+
   //prevent form post
   $("#name-submit").submit(function(e){
     e.preventDefault();
-
-    //setTimeout(function(){
-      responsiveVoice.speak("Nice moves! Your score was: Enter your name to input your score and find out how you did compared to others!", "US English Female");
-    //}, 2000);
 
     var user = $('#name').val();
 
@@ -324,7 +324,7 @@ function combo(){
       }
       this.comboIndex = 0;
       this.comboStart = 0;
-      this.comboName = "No Combo Yet!";
+      this.comboName = "--";
       this.comboPoints = 10;
       this.comboMatched = false;
   }
