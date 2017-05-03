@@ -1,36 +1,36 @@
 var combos = {
-	names : ["Zero","Xtreme_Three_Step","Whirlwind","Warm_Er_Up","Turning_Back_The_Clock","Triple_Jump","Thunderstorm","The_Crazy_Step","Suspended_In_Time","Super_Slide","Spontaneous_Combustion","Somersault","Sidewinder","Sicktackular","Screwball","Scintillator","Running_Man","Rock_A_By","Right_Waggle","Annihilator","Around_The_World","Atomic_Accelerator","Back_To_The_Future","Blast_Off","Bring_The_Pain","Carolina_Two_Step","Chromosomal","Easy_As_Pie","Exit_Hatch","Faster_Blaster","Flipside_360","Insinerator","Jagged_Edge","Jazzy_Tussle","Left_Waggle","Nerve_Crusher","jackhammer","bazooka","berserker","bombardment","canonball","corkscrew","inferno","PyschoTee","splinter","torpedo","zigZag"],
-	bazooka : {
+	names : ["Zero","Xtreme_Three_Step","Whirlwind","Warm_Er_Up","Turning_Back_The_Clock","Triple_Jump","Thunderstorm","The_Crazy_Step","Suspended_In_Time","Super_Slide","Spontaneous_Combustion","Somersault","Sidewinder","Sicktackular","Screwball","Scintillator","Running_Man","Rock_A_By","Right_Waggle","Annihilator","Around_The_World","Atomic_Accelerator","Back_To_The_Future","Blast_Off","Bring_The_Pain","Carolina_Two_Step","Chromosomal","Easy_As_Pie","Exit_Hatch","Faster_Blaster","Flipside_360","Insinerator","Jagged_Edge","Jazzy_Tussle","Left_Waggle","Nerve_Crusher","Jackhammer","Bazooka","Berserker","Bombardment","Canonball","Corkscrew","Inferno","PyschoTee","Splinter","Torpedo","ZigZag"],
+	Bazooka : {
 		first : 'down',
 		second : 'down',
 		third : 'up',
 	},
-	jackhammer : {
+	Jackhammer : {
 		first : 'back_left',
 		second : 'back_right',
 		third : 'up',
 	},
-	berserker : {
+	Berserker : {
 		first : 'left',
 		second : 'back_right',
 		third : 'up_left',
 	},
-	bombardment : {
+	Bombardment : {
 		first : 'right',
 		second : 'right',
 		third : 'up',
 	},
-	canonball : {
+	Canonball : {
 		first : 'left',
 		second : 'up',
 		third : 'right',
 	},
-	corkscrew : {
+	Corkscrew : {
 		first : 'up_left',
 		second : 'up',
 		third : 'back_right',
 	},
-	inferno : {
+	Inferno : {
 		first : 'back_right',
 		second : 'down',
 		third : 'back_left',
@@ -40,17 +40,17 @@ var combos = {
 		second : 'up_right',
 		third : 'back_left',
 	},
-	splinter : {
+	Splinter : {
 		first : 'up_left',
 		second : 'up',
 		third : 'up_right',
 	},
-	torpedo : {
+	Torpedo : {
 		first : 'up',
 		second : 'up',
 		third : 'down',
 	},
-	zigZag : {
+	ZigZag : {
 		first : 'back_left',
 		second : 'right',
 		third : 'up_left',
