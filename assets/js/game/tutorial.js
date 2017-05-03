@@ -182,7 +182,7 @@ function buttonPressEvent(button, buttonNumber){
     wrong.play();
   }else{
     var right = new Howl({
-      src: ['/audio/congrats.wav']
+      src: ['/audio/congrats.WAV']
     });
     right.play();
   }

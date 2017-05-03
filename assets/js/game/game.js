@@ -92,7 +92,7 @@ var checkIfHit = function(time){
     if(elapsedTime - beats[i] > (game.difficulty)*-1 && elapsedTime - beats[i] < game.difficulty) {
       beatCheckIndex = i;
       var right = new Howl({
-              src: ['/audio/congrats.wav']
+              src: ['/audio/congrats.WAV']
             });
       right.play();
       return true;
