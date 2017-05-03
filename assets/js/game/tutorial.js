@@ -177,7 +177,7 @@ function checkForGamePad(){
 function buttonPressEvent(button, buttonNumber){
   if(calibrationDirection == 'down'){
     var wrong = new Howl({
-      src: ['/audio/clank.WAV']
+      src: ['/audio/clank.wav']
     });
     wrong.play();
   }else{
